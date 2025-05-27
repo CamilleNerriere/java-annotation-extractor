@@ -3,6 +3,6 @@
 /Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/exporter/ExporterFactory.java
 /Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/exporter/IAnnotationExporter.java
 /Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/exporter/PdfAnnotationExporter.java
-/Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/exporter/WordCitationExporter.java
+/Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/exporter/WordAnnotationExporter.java
 /Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/extractor/Extractor.java
 /Users/camille/Documents/Dev/Extracteur annotations/annotation-extractor-java/pdf-annotation-extractor/src/main/java/com/example/pdfextractor/model/Annotation.java

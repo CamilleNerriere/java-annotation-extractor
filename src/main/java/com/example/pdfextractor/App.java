@@ -18,14 +18,13 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        File file = new File("pdf-annotation-extractor/src/resources/test.pdf");
+        File file = new File("pdf-annotation-extractor/src/main/resources/test.pdf");
         Extractor extractor = new Extractor();
         try (PDDocument document = Loader.loadPDF(file)) {
             LinkedHashMap<Integer, List<Annotation>> allAnnotations = extractor.getAnnotations(document);
 
-            // si c'est pas nul, on va venir générer un fichier word et un fichier pdf
             ExporterFactory exporterFactory = new ExporterFactory();
-            String format = "word";
+            String format = "pdf";
             IAnnotationExporter annotationExporter = exporterFactory.getExporter(allAnnotations, format);
             annotationExporter.export();
 
