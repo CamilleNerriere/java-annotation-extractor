@@ -16,25 +16,24 @@ import com.example.pdfextractor.model.Annotation;
 public class Extractor {
     private static final Logger logger = LoggerFactory.getLogger(Extractor.class);
 
-    public void getAnnotations(PDDocument document) throws IOException {
+    public LinkedHashMap<Integer, List<Annotation>> getAnnotations(PDDocument document) throws IOException {
         try (document) {
-            int pageNum =1;
+            int pageNum = 1;
             LinkedHashMap<Integer, List<Annotation>> allAnnotations = new LinkedHashMap<>();
 
             for (PDPage page : document.getPages()) {
                 List<Annotation> annotations = getAnnotationsPerPage(page, pageNum);
-
-                if(annotations != null && !annotations.isEmpty()){
+                if (annotations != null && !annotations.isEmpty()) {
                     allAnnotations.put(pageNum, annotations);
                 }
 
                 pageNum++;
             }
-
-            System.out.println(allAnnotations);
+            return allAnnotations;
         } catch (Exception e) {
             logger.error("Error during extractor execution", e);
         }
+        return null;
     }
 
     private List<Annotation> getAnnotationsPerPage(PDPage page, int pageNum) throws IOException {
@@ -42,7 +41,7 @@ public class Extractor {
             List<PDAnnotation> annotations = page.getAnnotations();
             List<Annotation> extractedAnnotations = new ArrayList<>();
             for (PDAnnotation annotation : annotations) {
-                if ("HighLight".equals(annotation.getSubtype()) || "Text".equals(annotation.getSubtype())) {
+                if ("Text".equals(annotation.getSubtype()) || "FreeText".equals(annotation.getSubtype())) {
                     Annotation annot = new Annotation(pageNum, annotation.getSubtype(), annotation.getContents());
                     extractedAnnotations.add(annot);
                 }
