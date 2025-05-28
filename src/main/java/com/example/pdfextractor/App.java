@@ -24,9 +24,14 @@ public class App {
             LinkedHashMap<Integer, List<Annotation>> allAnnotations = extractor.getAnnotations(document);
 
             ExporterFactory exporterFactory = new ExporterFactory();
-            String format = "pdf";
-            IAnnotationExporter annotationExporter = exporterFactory.getExporter(allAnnotations, format);
-            annotationExporter.export();
+            
+            String[] format = {"pdf", "word"};
+            String title = "Simondon - ILFI";
+
+            List<IAnnotationExporter> annotationExporters = exporterFactory.getExporter(allAnnotations, format, title);
+            for(IAnnotationExporter exporter : annotationExporters){
+                exporter.export();
+            }  
 
         } catch (Exception e) {
             logger.error("Error during extractor execution", e);
