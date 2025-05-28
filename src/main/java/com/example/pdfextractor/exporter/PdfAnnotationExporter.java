@@ -120,13 +120,15 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
     }
 
     private void addTitle(String title) throws IOException {
+
+        String formatTitle = title.replace("\n", " ");
         checkPageSpace(TITLE_SIZE + PARAGRAPH_SPACING);
 
         contentStream.beginText();
         contentStream.setFont(TITLE_FONT, TITLE_SIZE);
         contentStream.setNonStrokingColor(TITLE_COLOR);
         contentStream.newLineAtOffset(MARGIN, yPosition);
-        contentStream.showText(title);
+        contentStream.showText(formatTitle);
         contentStream.endText();
 
         contentStream.setNonStrokingColor(MAIN_COLOR);
