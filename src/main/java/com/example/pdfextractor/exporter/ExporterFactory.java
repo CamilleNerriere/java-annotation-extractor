@@ -8,10 +8,9 @@ import java.util.List;
 import com.example.pdfextractor.model.Annotation;
 
 public class ExporterFactory {
-    public List<IAnnotationExporter> getExporter(LinkedHashMap<Integer, List<Annotation>> annotations, String[] formats,
-            String title) {
+    public List<IAnnotationExporter> getExporter(LinkedHashMap<Integer, List<Annotation>> annotations, String[] formats, String title) {
         List<String> uniqueFormats = removeRedondantFormat(formats);
-        return getAskedExporters(uniqueFormats, annotations);
+        return getAskedExporters(uniqueFormats, annotations, title);
 
     }
 
@@ -20,7 +19,7 @@ public class ExporterFactory {
     }
 
     private List<IAnnotationExporter> getAskedExporters(List<String> uniqueFormats,
-            LinkedHashMap<Integer, List<Annotation>> annotations) {
+            LinkedHashMap<Integer, List<Annotation>> annotations, String title) {
 
         List<IAnnotationExporter> exporters = new ArrayList<>();
 
@@ -28,13 +27,13 @@ public class ExporterFactory {
             if (format == null)
                 return null;
             IAnnotationExporter exporter = switch (format) {
-                case "word" -> new WordAnnotationExporter(annotations);
-                case "pdf" -> new PdfAnnotationExporter(annotations);
+                case "word" -> new WordAnnotationExporter(annotations, title);
+                case "pdf" -> new PdfAnnotationExporter(annotations, title);
                 default -> throw new IllegalArgumentException("Unknown format : " + format);
             };
             exporters.add(exporter);
         }
-        
+
         return exporters;
     }
 

@@ -1,8 +1,0 @@
-com/example/pdfextractor/exporter/WordAnnotationExporter.class
-com/example/pdfextractor/exporter/PdfAnnotationExporter.class
-com/example/pdfextractor/exporter/IAnnotationExporter.class
-com/example/pdfextractor/exporter/Annotation.class
-com/example/pdfextractor/exporter/ExporterFactory.class
-com/example/pdfextractor/extractor/Extractor.class
-com/example/pdfextractor/App.class
-com/example/pdfextractor/model/Annotation.class

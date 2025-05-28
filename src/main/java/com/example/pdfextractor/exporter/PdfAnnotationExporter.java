@@ -22,6 +22,7 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
     private static final Logger logger = LoggerFactory.getLogger(PdfAnnotationExporter.class);
 
     private final LinkedHashMap<Integer, List<Annotation>> annotations;
+    private final String title;
 
     private PDDocument document;
     private PDPage currentPage;
@@ -45,8 +46,9 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
     private static final float LINE_SPACING = 15f;
     private static final float PARAGRAPH_SPACING = 20f;
 
-    public PdfAnnotationExporter(LinkedHashMap<Integer, List<Annotation>> annotations) {
+    public PdfAnnotationExporter(LinkedHashMap<Integer, List<Annotation>> annotations, String title) {
         this.annotations = annotations;
+        this.title = title;
     }
 
     @Override
@@ -62,7 +64,7 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
             createNewPage();
 
             // main title
-            addTitle("Annotations du PDF");
+            addTitle(title);
             addEmptyLine();
 
             // get all annotations
@@ -85,7 +87,7 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
             }
 
             // save
-            File exportFile = new File("annotations.pdf");
+            File exportFile = new File(generatePathName(title));
             document.save(exportFile);
             document.close();
 
@@ -227,7 +229,12 @@ public class PdfAnnotationExporter implements IAnnotationExporter {
     private String sanitize(String text) {
         if (text == null)
             return "";
-        return text.replace("\t", "    ");
+        return text.replace("\t", "    ").replace("\uFEFF", "").replace("\u200B", "");
+    }
+
+    private String generatePathName(String title){
+        String titleWithoutWhiteSpace =  title.replaceAll("\\s", "_");
+        return titleWithoutWhiteSpace + ".pdf";
     }
 
 }

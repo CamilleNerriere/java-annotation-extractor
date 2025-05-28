@@ -31,18 +31,20 @@ import com.example.pdfextractor.model.Annotation;
 public class WordAnnotationExporter implements IAnnotationExporter {
 
     private final LinkedHashMap<Integer, List<Annotation>> annotations;
+    private final String title;
+
     private final ObjectFactory factory;
     private MainDocumentPart mainDocumentPart;
     private static final Logger logger = LoggerFactory.getLogger(WordAnnotationExporter.class);
 
-    public WordAnnotationExporter(LinkedHashMap<Integer, List<Annotation>> annotations) {
+    public WordAnnotationExporter(LinkedHashMap<Integer, List<Annotation>> annotations, String title) {
         this.annotations = annotations;
+        this.title = title;
         this.factory = Context.getWmlObjectFactory();
     }
 
     @Override
     public void export() {
-        // TODO passer le nom voulu pour le word
 
         try {
             WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
@@ -58,7 +60,7 @@ public class WordAnnotationExporter implements IAnnotationExporter {
             runFont.setHAnsi("Arial");
             rpr.setRFonts(runFont);
             mainDocumentPart = wordPackage.getMainDocumentPart();
-            mainDocumentPart.addStyledParagraphOfText("Title", "Annotations du PDF");
+            mainDocumentPart.addStyledParagraphOfText("Title", title);
 
             addEmptyParagraph();
 
@@ -75,16 +77,14 @@ public class WordAnnotationExporter implements IAnnotationExporter {
                 addEmptyParagraph();
             }
 
-            File exportFile = new File("annotations.docx");
+            File exportFile = new File(generatePathName(title));
             wordPackage.save(exportFile);
             logger.info("Word Export ended successfully : {}", exportFile.getAbsolutePath());
-
 
         } catch (Docx4JException e) {
             logger.error("Error during word export", e);
         }
     }
-
 
     private void addEmptyParagraph() {
         P paragraph = factory.createP();
@@ -158,6 +158,10 @@ public class WordAnnotationExporter implements IAnnotationExporter {
             mainDocumentPart.getContent().add(paragraph);
         }
 
+    }
+
+    private String generatePathName(String title) {
+        return title.replaceAll("\\s", "_") + ".docx";
     }
 
 }

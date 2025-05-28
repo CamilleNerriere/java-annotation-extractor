@@ -18,7 +18,7 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        File file = new File("pdf-annotation-extractor/src/main/resources/test.pdf");
+        File file = new File("pdf-annotation-extractor/src/main/resources/test3.pdf");
         Extractor extractor = new Extractor();
         try (PDDocument document = Loader.loadPDF(file)) {
             LinkedHashMap<Integer, List<Annotation>> allAnnotations = extractor.getAnnotations(document);
@@ -26,7 +26,7 @@ public class App {
             ExporterFactory exporterFactory = new ExporterFactory();
             
             String[] format = {"pdf", "word"};
-            String title = "Simondon - ILFI";
+            String title = "Whitehead - Procès et Réalité";
 
             List<IAnnotationExporter> annotationExporters = exporterFactory.getExporter(allAnnotations, format, title);
             for(IAnnotationExporter exporter : annotationExporters){

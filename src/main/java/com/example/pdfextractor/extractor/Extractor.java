@@ -41,7 +41,7 @@ public class Extractor {
             List<PDAnnotation> annotations = page.getAnnotations();
             List<Annotation> extractedAnnotations = new ArrayList<>();
             for (PDAnnotation annotation : annotations) {
-                if ("Text".equals(annotation.getSubtype()) || "FreeText".equals(annotation.getSubtype())) {
+                if ("Highlight".equals(annotation.getSubtype()) || "Text".equals(annotation.getSubtype()) || "FreeText".equals(annotation.getSubtype())) {
                     Annotation annot = new Annotation(pageNum, annotation.getSubtype(), annotation.getContents());
                     extractedAnnotations.add(annot);
                 }
