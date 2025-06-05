@@ -2,3 +2,4 @@
 
 Readme to come
 
+Still a work in project -> CLI version
